@@ -10,7 +10,7 @@ def json_chat(model: str, system: str, user: str) -> dict:
     """Call Chat Completions and parse the assistant's JSON."""
     resp = client.chat.completions.create(
         model=model,
-        temperature=0.2,
+        temperature=0.5,
         response_format={"type": "json_object"},
         messages=[
             {"role": "system", "content": system},

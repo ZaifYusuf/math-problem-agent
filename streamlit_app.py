@@ -8,11 +8,11 @@ st.set_page_config(page_title="Math Problem Agent", page_icon="📘", layout="ce
 
 # ---------- State init ----------
 def _init_state():
-    st.session_state.setdefault("problem", None)         # {id, prompt}
-    st.session_state.setdefault("graded", None)          # latest grade response
-    st.session_state.setdefault("total_attempts", 0)     # counters for metric bar
+    st.session_state.setdefault("problem", None)         
+    st.session_state.setdefault("graded", None)          
+    st.session_state.setdefault("total_attempts", 0)     
     st.session_state.setdefault("total_correct", 0)
-    st.session_state.setdefault("start_time", None)      # track time-on-problem
+    st.session_state.setdefault("start_time", None)      
 _init_state()
 
 # ---------- Small UI components ----------
