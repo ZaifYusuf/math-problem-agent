@@ -4,7 +4,7 @@ import streamlit as st
 from problem_service import generate_problem, grade_problem
 
 # ---------- Page setup ----------
-st.set_page_config(page_title="Math Problem Agent", page_icon="📘", layout="centered")
+st.set_page_config(page_title="SumRise - Math Problem Agent", page_icon="assets/SumRiseLogo.png", layout="centered")
 
 # ---------- State init ----------
 def _init_state():
@@ -30,6 +30,8 @@ def render_metric_bar():
 
 def render_sidebar():
     with st.sidebar:
+        st.image("assets/SumRiseLogo.png", width=140, caption=None, output_format="PNG",
+             use_container_width=False, clamp=False)
         st.header("Generate a Problem")
         problem_type = st.selectbox("Problem type", ["arithmetic", "algebra", "geometry"], key="ptype")
         difficulty = st.selectbox("Difficulty", ["easy", "medium", "hard"], key="pdiff")
