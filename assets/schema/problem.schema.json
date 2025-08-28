@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GeneratorPayload",
+  "type": "object",
+  "required": [
+    "title",
+    "topic",
+    "difficulty",
+    "display_md",
+    "solution_md",
+    "final_answer_tex",
+    "rubric_md"
+  ],
+  "properties": {
+    "title": { "type": "string", "minLength": 1 },
+    "topic": { "type": "string", "minLength": 1 },
+    "difficulty": { "type": "string", "enum": ["easy", "medium", "hard"] },
+    "display_md": { "type": "string", "minLength": 1 },
+    "solution_md": { "type": "string", "minLength": 1 },
+    "final_answer_tex": { "type": "string", "minLength": 1 },
+    "rubric_md": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": false
+}

@@ -2,6 +2,12 @@ import uuid
 from llm_utils import json_chat
 import prompts
 
+from validators import (
+    validate_problem_dict,
+    validate_grade_dict,
+    collect_validation_errors,
+)
+
 MODEL = "gpt-4o-mini"
 
 # In-memory store of problems (server-side only).
@@ -29,6 +35,12 @@ def generate_problem(problem_type: str, difficulty: str) -> dict:
         prompts.GENERATOR_SYSTEM,
         prompts.GENERATOR_USER.format(problem_type=problem_type, difficulty=difficulty),
     )
+
+    try:
+        validate_problem_dict(payload)
+    except Exception:
+        errs = "; ".join(collect_validation_errors(payload, kind="problem")) or "Unknown schema error"
+        raise ValueError(f"Generator payload failed schema validation: {errs}")
 
     # Defensive mapping in case the model ever omits a field.
     display_md     = _coalesce(payload, "display_md", "prompt")
@@ -79,6 +91,13 @@ def grade_problem(problem_id: str, user_work: str, user_answer: str) -> dict:
             user_answer=user_answer,
         ),
     )
+
+    # NEW: validate the grader payload against schema
+    try:
+        validate_grade_dict(payload)
+    except Exception:
+        errs = "; ".join(collect_validation_errors(payload, kind="grade")) or "Unknown schema error"
+        raise ValueError(f"Grader payload failed schema validation: {errs}")
 
     # Be defensive in case the LLM omits a field
     result = {
